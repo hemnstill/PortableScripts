@@ -3,14 +3,15 @@ dp0="$(dirname "$0")"
 dp0_tools="$dp0/../.tools" && source "$dp0_tools/env_tools.sh"
 
 PYTHONIOENCODING=UTF-8
-runtime_version_name=install
+
 runtime_exe_relative_path=bin/python3 && $is_windows_os && runtime_exe_relative_path=python.exe
 runtime_archive_name=cpython-linux.tar && $is_windows_os && runtime_archive_name=cpython-win.tar
 
-runtime_version_path="$dp0/tools/python/$runtime_version_name"
+runtime_version_path="$dp0/tools/python/install"
 runtime_bin_path="$runtime_version_path/$runtime_exe_relative_path"
+runtim_lib_path="$runtime_version_path/lib/python3.10" && $is_windows_os && runtim_lib_path="$runtime_version_path/Lib"
 
-if [[ ! -f "$runtime_bin_path" ]] || [[ ! -f "$runtime_version_path/Lib/subprocess.py" ]]; then
+if [[ ! -f "$runtime_bin_path" ]] || [[ ! -f "$runtim_lib_path/subprocess.py" ]]; then
   echo "file '$runtime_bin_path' does not exists.";
   echo "extracting '$runtime_archive_name' to '$dp0/tools' ...";
   "$p7z" -bd x "$dp0/tools/$runtime_archive_name" "-o$dp0/tools" -aoa;
