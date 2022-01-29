@@ -20,4 +20,18 @@ jobs:
       - name: test-run
         run: |
           apk add --no-cache bash zstd
+          echo ">> install powershell deps"
+          apk add --no-cache \
+              ca-certificates \
+              less \
+              ncurses-terminfo-base \
+              krb5-libs \
+              libgcc \
+              libintl \
+              libssl1.1 \
+              libstdc++ \
+              tzdata \
+              userspace-rcu \
+              zlib \
+              icu-libs
           .tests/test-run.sh
