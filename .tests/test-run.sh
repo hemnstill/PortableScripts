@@ -5,6 +5,7 @@ errors_count=0
 
 echo ">> Init (Bash)"
 ../Bash/init.sh
+../Bash/run.bat
 
 echo ">> Test (Bash)"
 etalon_log=$(echo -e "hello, 's1 ы1'\nexit code: 42\n")
