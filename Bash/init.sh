@@ -1,7 +1,9 @@
 #!/bin/bash
 cd "$(dirname "$0")"
 
-p7z="../.tools/7z.exe"
+source ../.tools/env_tools.sh
 
-archive_name=./tools/busybox-win.7z
-$p7z a $archive_name -up0q0 "../.tools/busybox64.exe"
+archive_name=./tools/busybox-win.7z && [[ $(uname) == Windows_NT* ]] && archive_name=./tools/busybox-linux.7z
+binary_name=../.tools/busybox64.exe && [[ $(uname) == Windows_NT* ]] && binary_name=../.tools/busybox
+
+$p7z a $archive_name -up0q0 "$binary_name"
