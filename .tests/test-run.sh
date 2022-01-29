@@ -6,6 +6,8 @@ errors_count=0
 
 uname -a
 
+$is_windows_os && chcp
+
 echo ">> Init (Bash)"
 "$dp0/../Bash/init.sh"
 "$dp0/../Bash/run.sh"
