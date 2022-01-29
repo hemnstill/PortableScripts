@@ -1,0 +1,23 @@
+name: test-run linux
+
+on: [pull_request]
+
+jobs:
+  ubuntu-host:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: test-run
+        run: .tests/test-run.sh
+
+  alpine-docker:
+    runs-on: ubuntu-latest
+    container: alpine:latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: test-run
+        run: |
+          apk add --no-cache bash
+          .tests/test-run.sh

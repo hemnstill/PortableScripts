@@ -1,7 +1,10 @@
 #!/bin/bash
-cd "$(dirname "$0")"
+dp0="$(dirname "$0")"
+dp0_tools="$dp0/../.tools" && source "$dp0_tools/env_tools.sh"
 
-p7z="../.tools/7z.exe"
+archive_name="$dp0/tools/busybox-linux.7z" && [[ $(uname) == Windows_NT* ]] && archive_name="$dp0/tools/busybox-win.7z"
 
-archive_name=./tools/busybox-win.7z
-$p7z a $archive_name -up0q0 "../.tools/busybox64.exe"
+echo busybox version:
+"$busybox"
+
+"$p7z" a "$archive_name" -up0q0 "$busybox"
