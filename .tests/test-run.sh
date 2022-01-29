@@ -3,8 +3,6 @@ dp0="$(dirname "$0")"
 
 errors_count=0
 
-"zstd" --version || exit
-
 echo ">> Init (Bash)"
 "$dp0/../Bash/init.sh"
 "$dp0/../Bash/run.sh"
