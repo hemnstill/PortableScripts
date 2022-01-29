@@ -1,5 +1,5 @@
 @echo off
-set p7z=%~dp0tools\7z.exe
+set p7z=%~dp0..\.tools\7z.exe
 
 set jdk_runtime_version_name=jdk-17.0.2
 set JAVA_HOME=%~dp0tools\%jdk_runtime_version_name%

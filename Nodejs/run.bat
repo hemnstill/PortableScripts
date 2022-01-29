@@ -1,5 +1,5 @@
 @echo off
-set p7z=%~dp0tools\7z.exe
+set p7z=%~dp0..\.tools\7z.exe
 
 set runtime_version_name=node-v16.13.2-win-x64
 set runtime_exe_relative_path=node.exe

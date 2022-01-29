@@ -1,5 +1,5 @@
 @echo off
-set p7z=%~dp0tools\7z.exe
+set p7z=%~dp0..\.tools\7z.exe
 
 set GOPATH=%~dp0
 

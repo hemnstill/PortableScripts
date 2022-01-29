@@ -1,5 +1,5 @@
 @echo off
-set p7z=%~dp0tools\7z.exe
+set p7z=%~dp0..\.tools\7z.exe
 
 set runtime_version_name=busybox-1.35-win
 set runtime_exe_relative_path=busybox64.exe
