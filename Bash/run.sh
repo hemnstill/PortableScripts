@@ -17,3 +17,6 @@ if [[ ! -f "$runtime_bin_path" ]]; then
 fi
 
 "$runtime_bin_path" ash "$dp0/main.sh" "$@"
+errorlevel=$?
+echo exit code: $errorlevel
+exit $errorlevel
