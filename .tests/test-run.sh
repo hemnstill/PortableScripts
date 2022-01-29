@@ -14,7 +14,7 @@ echo ">> Init (Python)"
 
 echo ">> Init (PowerShell)"
 "$dp0/../PowerShell/init.sh"
-"$dp0/../Python/run.sh"
+"$dp0/../PowerShell/run.sh"
 
 echo ">> Test (Bash)"
 etalon_log=$(echo -e "Hello, 's1 ы1'\nexit code: 42\n")
