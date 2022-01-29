@@ -9,9 +9,8 @@ runtime_archive_name=cpython-linux.tar && $is_windows_os && runtime_archive_name
 
 runtime_version_path="$dp0/tools/python/install"
 runtime_bin_path="$runtime_version_path/$runtime_exe_relative_path"
-runtim_lib_path="$runtime_version_path/lib/python3.10" && $is_windows_os && runtim_lib_path="$runtime_version_path/Lib"
-
-if [[ ! -f "$runtime_bin_path" ]] || [[ ! -f "$runtim_lib_path/subprocess.py" ]]; then
+windows_lib_check=false && $is_windows_os && [[ ! -f "$runtime_version_path/Lib/subprocess.py" ]] && windows_lib_check=true
+if [[ ! -f "$runtime_bin_path" ]] || $windows_lib_check; then
   echo "file '$runtime_bin_path' does not exists.";
   echo "extracting '$runtime_archive_name' to '$dp0/tools' ...";
   "$p7z" -bd x "$dp0/tools/$runtime_archive_name" "-o$dp0/tools" -aoa;
