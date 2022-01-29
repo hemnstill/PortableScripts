@@ -1,7 +1,7 @@
 #!/bin/bash
-cd "$(dirname "$0")"
+dp0="$(dirname "$0")"
 
-source ./foo.sh
+source "$dp0/foo.sh"
 
 # shellcheck disable=SC2005
 echo "$(hello "$@")"
