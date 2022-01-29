@@ -5,9 +5,6 @@ dp0_tools="$dp0/../.tools" && source "$dp0_tools/env_tools.sh"
 errors_count=0
 
 uname -a
-
-$is_windows_os && chcp
-
 echo ">> Init (Bash)"
 "$dp0/../Bash/init.sh"
 "$dp0/../Bash/run.sh"
