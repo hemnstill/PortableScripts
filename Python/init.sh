@@ -16,7 +16,7 @@ else
 fi
 
 download_url_prefix=https://github.com/indygreg/python-build-standalone/releases/download/20211017/cpython-3.10.0-x86_64
-download_url="$download_url_prefix-unknown-linux-musl-noopt-20211017T1616.tar.zst" && $is_windows_os && download_url="$download_url_prefix-pc-windows-msvc-static-noopt-20211017T1616.tar.zst"
+download_url="$download_url_prefix-unknown-linux-musl-noopt-20211017T1616.tar.zst" && $is_windows_os && download_url="$download_url_prefix-pc-windows-msvc-shared-pgo-20211017T1616.tar.zst"
 cpython_zip="$runtime_tools/cpython-linux.tar.zst" && $is_windows_os && cpython_zip="$runtime_tools/cpython-win.tar.zst"
 [[ ! -f "$cpython_zip" ]] && "$busybox" wget "$download_url" -O "$cpython_zip"
 
