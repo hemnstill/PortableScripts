@@ -3,9 +3,9 @@ dp0="$(dirname "$0")"
 dp0_tools="$dp0/../.tools" && source "$dp0_tools/env_tools.sh"
 
 PYTHONIOENCODING=UTF-8
-runtime_version_name=install/bin && [[ $(uname) == Windows_NT* ]] && runtime_version_name=install
-runtime_exe_relative_path=python && [[ $(uname) == Windows_NT* ]] && runtime_exe_relative_path=python.exe
-runtime_archive_name=cpython-linux.tar && [[ $(uname) == Windows_NT* ]] && runtime_archive_name=cpython-win.tar
+runtime_version_name=install/bin && $is_windows_os && runtime_version_name=install
+runtime_exe_relative_path=python && $is_windows_os && runtime_exe_relative_path=python.exe
+runtime_archive_name=cpython-linux.tar && $is_windows_os && runtime_archive_name=cpython-win.tar
 
 runtime_version_path="$dp0/tools/python/$runtime_version_name"
 runtime_bin_path="$runtime_version_path/$runtime_exe_relative_path"
