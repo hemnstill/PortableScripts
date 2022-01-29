@@ -1,4 +1,4 @@
-#!/bin/ash
+#!/bin/bash
 dp0="$(dirname "$0")"
 
 errors_count=0

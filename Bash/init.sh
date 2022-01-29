@@ -1,4 +1,4 @@
-#!/bin/ash
+#!/bin/bash
 dp0="$(dirname "$0")"
 
 source "$dp0/../.tools/env_tools.sh"
