@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/ash
 dp0="$(dirname "$0")"
 source "$dp0/../.tools/env_tools.sh"
 
@@ -16,4 +16,4 @@ if [[ ! -f "$runtime_bin_path" ]]; then
   errorlevel=$?; if [[ $errorlevel -ne 0 ]]; then echo "exit code: $errorlevel"; exit $errorlevel; fi
 fi
 
-"$runtime_bin_path" bash "$dp0/main.sh" "$@"
+"$runtime_bin_path" ash "$dp0/main.sh" "$@"
