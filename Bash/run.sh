@@ -2,8 +2,8 @@
 dp0="$(dirname "$0")"
 dp0_tools="$dp0/../.tools" && source "$dp0_tools/env_tools.sh"
 
-runtime_version_name=busybox-1.35-linux && [[ $(uname) == Windows_NT* ]] && runtime_version_name=busybox-1.35-win
-runtime_archive_name=busybox-linux.7z && [[ $(uname) == Windows_NT* ]] && runtime_archive_name=busybox-win.7z
+runtime_version_name=busybox-1.35-linux && $is_windows_os && runtime_version_name=busybox-1.35-win
+runtime_archive_name=busybox-linux.7z && $is_windows_os && runtime_archive_name=busybox-win.7z
 
 runtime_version_path="$dp0/tools/$runtime_version_name"
 runtime_bin_path="$runtime_version_path/$busybox_filename"
