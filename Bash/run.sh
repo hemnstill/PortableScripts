@@ -1,13 +1,12 @@
 #!/bin/bash
 dp0="$(dirname "$0")"
-source "$dp0/../.tools/env_tools.sh"
+dp0_tools="$dp0/../.tools" && source "$dp0_tools/env_tools.sh"
 
 runtime_version_name=busybox-1.35-linux && [[ $(uname) == Windows_NT* ]] && runtime_version_name=busybox-1.35-win
-runtime_exe_relative_path=busybox && [[ $(uname) == Windows_NT* ]] && runtime_exe_relative_path=busybox64.exe
 runtime_archive_name=busybox-linux.7z && [[ $(uname) == Windows_NT* ]] && runtime_archive_name=busybox-win.7z
 
 runtime_version_path="$dp0/tools/$runtime_version_name"
-runtime_bin_path="$runtime_version_path/$runtime_exe_relative_path"
+runtime_bin_path="$runtime_version_path/$busybox_filename"
 
 if [[ ! -f "$runtime_bin_path" ]]; then
   echo "file '$runtime_bin_path' does not exists.";
