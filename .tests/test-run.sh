@@ -1,5 +1,6 @@
 #!/bin/bash
 dp0="$(dirname "$0")"
+dp0_tools="$dp0/../.tools" && source "$dp0_tools/env_tools.sh"
 
 errors_count=0
 
@@ -25,7 +26,9 @@ fi
 
 echo ">> Test (Python)"
 etalon_log=$(echo -e "hello, '['s1', 'ы1']'\nexit code: 42\n")
-actual_log=$("$dp0/../Python/run.sh" s1 ы1 | dos2unix)
+actual_log=$("$dp0/../Python/run.sh" s1 ы1)
+# crlf fix
+$is_windows_os && actual_log=$(echo "$actual_log" | dos2unix)
 if [ "$etalon_log" != "$actual_log" ]; then
   errors_count=$((errors_count + 1))
   echo "<< Failed (Python)"
