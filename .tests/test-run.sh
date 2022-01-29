@@ -44,8 +44,8 @@ else
 fi
 
 echo ">> Test (PowerShell)"
-etalon_log=$(echo -e "Hello, 's1 ы1'\nexit code: 42\n")
-actual_log=$("$dp0/../PowerShell/run.sh" s1 ы1)
+etalon_log=$(echo -e "Hello, 's1 todo_fix_encoding1'\nexit code: 42\n")
+actual_log=$("$dp0/../PowerShell/run.sh" s1 todo_fix_encoding1)
 # crlf fix
 $is_windows_os && actual_log=$(echo "$actual_log" | dos2unix)
 if [ "$etalon_log" != "$actual_log" ]; then
