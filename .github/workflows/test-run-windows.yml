@@ -12,4 +12,4 @@ jobs:
       - name: test-run
         shell: cmd
         run: |
-          .tools\busybox64.exe bash .tests\test-run.sh
+          .tests\test-run.bat
