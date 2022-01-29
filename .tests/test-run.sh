@@ -43,7 +43,7 @@ else
   echo "<< Passed (Python)"
 fi
 
-echo ">> Test (PowerShell)"
+echo ">> Test (PowerShell) #TODO: fix_encoding"
 etalon_log=$(echo -e "Hello, 's1 todo_fix_encoding1'\nexit code: 42\n")
 actual_log=$("$dp0/../PowerShell/run.sh" s1 todo_fix_encoding1)
 # crlf fix
