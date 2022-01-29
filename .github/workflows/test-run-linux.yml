@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Internal test-run
+      - name: test-run
         run: |
           apk add --no-cache bash
           .tests/test-run.sh
