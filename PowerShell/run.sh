@@ -9,7 +9,7 @@ runtime_archive_name=powershell-linux.tar && $is_windows_os && runtime_archive_n
 runtime_version_path="$dp0/tools/$runtime_version_name"
 runtime_bin_path="$runtime_version_path/$runtime_exe_relative_path"
 windows_lib_check=false && $is_windows_os && [[ ! -f "$runtime_version_path/pwsh.xml" ]] && windows_lib_check=true
-if [[ ! -f "$runtime_bin_path" ]]; then
+if [[ ! -f "$runtime_bin_path" ]] || $windows_lib_check; then
   echo "file '$runtime_bin_path' does not exists.";
   echo "extracting '$runtime_archive_name' to '$dp0/tools/$runtime_version_name' ...";
   "$p7z" -bd x "$dp0/tools/$runtime_archive_name" "-o$dp0/tools/$runtime_version_name" -aoa;
