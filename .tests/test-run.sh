@@ -5,57 +5,40 @@ dp0_tools="$dp0/../.tools" && source "$dp0_tools/env_tools.sh"
 errors_count=0
 
 uname -a
-echo ">> Init (Bash)"
-"$dp0/../Bash/init.sh"
-"$dp0/../Bash/run.sh"
 
-echo ">> Init (Python)"
-"$dp0/../Python/init.sh"
-"$dp0/../Python/run.sh"
+function test_init() {
+  local runtime_name="$1"
+  echo ">> Init ($runtime_name)"
+  "$dp0/../$runtime_name/init.sh"
+  "$dp0/../$runtime_name/run.sh"
+}
 
-echo ">> Init (PowerShell)"
-"$dp0/../PowerShell/init.sh"
-"$dp0/../PowerShell/run.sh"
+function test_stdout() {
+  local runtime_name="$1"
+  echo ">> Test ($runtime_name)"
+  local etalon_log=$(echo -e "$2")
+  local actual_log=$("$dp0/../$runtime_name/run.sh" "$3")
+  # crlf fix
+  $is_windows_os && actual_log=$(echo "$actual_log" | dos2unix)
+  if [ "$etalon_log" != "$actual_log" ]; then
+    errors_count=$((errors_count + 1))
+    echo "<< Failed ($runtime_name)"
+    echo expected: "$etalon_log"
+    echo actual: "$actual_log"
+  else
+    echo "<< Passed ($runtime_name)"
+  fi
+}
 
-echo ">> Test (Bash)"
-etalon_log=$(echo -e "Hello, 's1 ы1'\nexit code: 42\n")
-actual_log=$("$dp0/../Bash/run.sh" s1 ы1)
-if [ "$etalon_log" != "$actual_log" ]; then
-  errors_count=$((errors_count + 1))
-  echo "<< Failed (Bash)"
-  echo expected: "$etalon_log"
-  echo actual: "$actual_log"
-else
-  echo "<< Passed (Bash)"
-fi
+test_init "Bash"
+test_init "Python"
+test_init "PowerShell"
+test_init "Nodejs"
 
-echo ">> Test (Python)"
-etalon_log=$(echo -e "Hello, '['s1', 'ы1']'\nexit code: 42\n")
-actual_log=$("$dp0/../Python/run.sh" s1 ы1)
-# crlf fix
-$is_windows_os && actual_log=$(echo "$actual_log" | dos2unix)
-if [ "$etalon_log" != "$actual_log" ]; then
-  errors_count=$((errors_count + 1))
-  echo "<< Failed (Python)"
-  echo expected: "$etalon_log"
-  echo actual: "$actual_log"
-else
-  echo "<< Passed (Python)"
-fi
-
-echo ">> Test (PowerShell) #TODO: fix_encoding"
-etalon_log=$(echo -e "Hello, 's1 todo_fix_encoding1'\nexit code: 42\n")
-actual_log=$("$dp0/../PowerShell/run.sh" s1 todo_fix_encoding1)
-# crlf fix
-$is_windows_os && actual_log=$(echo "$actual_log" | dos2unix)
-if [ "$etalon_log" != "$actual_log" ]; then
-  errors_count=$((errors_count + 1))
-  echo "<< Failed (PowerShell)"
-  echo expected: "$etalon_log"
-  echo actual: "$actual_log"
-else
-  echo "<< Passed (PowerShell)"
-fi
+test_stdout "Bash" "Hello, 's1 ы1'\nexit code: 42\n" "s1 ы1"
+test_stdout "Python" "Hello, '['s1 ы1']'\nexit code: 42\n" "s1 ы1"
+test_stdout "PowerShell" "Hello, 's1 todo_fix_encoding1'\nexit code: 42\n" "s1 todo_fix_encoding1"
+test_stdout "Nodejs" "Hello, 's1 ы1'\nexit code: 42\n" "s1 ы1"
 
 echo Errors: "$errors_count"
 exit $errors_count
