@@ -12,4 +12,4 @@ download_url="$linux_download_url" && $is_windows_os && download_url="$windows_d
 runtime_zip="$runtime_tools/powershell-linux.tar.gz" && $is_windows_os && runtime_zip="$runtime_tools/powershell-win.zip"
 [[ ! -f "$runtime_zip" ]] && "$busybox" wget "$download_url" -O "$runtime_zip"
 
-$is_windows_os || "$p7z" e "$runtime_zip" "-o$runtime_tools" -aoa -r
+$is_windows_os || [[ ! -f "$runtime_tools/powershell-linux.tar" ]] && "$p7z" e "$runtime_zip" "-o$runtime_tools" -aoa -r

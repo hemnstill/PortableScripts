@@ -21,4 +21,5 @@ download_url="$linux_download_url" && $is_windows_os && download_url="$windows_d
 cpython_zip="$runtime_tools/cpython-linux.tar.zst" && $is_windows_os && cpython_zip="$runtime_tools/cpython-win.tar.zst"
 [[ ! -f "$cpython_zip" ]] && "$busybox" wget "$download_url" -O "$cpython_zip"
 
-$zstd -df "$cpython_zip"
+cpython_tar="$runtime_tools/cpython-linux.tar" && $is_windows_os && cpython_tar="$runtime_tools/cpython-win.tar"
+[[ ! -f "$cpython_tar" ]] && $zstd -df "$cpython_zip"
