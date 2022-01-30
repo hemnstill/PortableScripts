@@ -3,7 +3,7 @@ dp0="$(dirname "$0")"
 dp0_tools="$dp0/../.tools" && source "$dp0_tools/env_tools.sh"
 
 jdk_runtime_version_name=jdk-17.0.2
-$is_alpine_os && jdk_runtime_version_name=jdk-19
+$is_alpine_os && jdk_runtime_version_name=jdk-18
 JAVA_HOME="$dp0/tools/$jdk_runtime_version_name"
 openjdk_runtime_archive_name=openjdk-linux.tar && $is_windows_os && openjdk_runtime_archive_name=openjdk-windows.zip
 
@@ -21,7 +21,6 @@ if [[ ! -f "$runtime_bin_path" ]] || $windows_lib_check; then
   echo "extracting '$openjdk_runtime_archive_name' to '$dp0/tools' ...";
   "$p7z" -bd x "$dp0/tools/$openjdk_runtime_archive_name" "-o$dp0/tools" -aoa;
   errorlevel=$?; if [[ $errorlevel -ne 0 ]]; then echo "exit code: $errorlevel"; exit $errorlevel; fi
-  ls "$JAVA_HOME/bin"
 fi
 
 "$runtime_bin_path" -script "$dp0/main.kts" "$@"

@@ -36,4 +36,6 @@ jobs:
               icu-libs
           echo ">> install golang deps"
           apk add --no-cache libc6-compat
+          echo ">> install java deps"
+          apk add --no-cache gcompat musl-dev
           .tests/test-run.sh
