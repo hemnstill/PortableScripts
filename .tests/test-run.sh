@@ -39,12 +39,14 @@ test_init "Python"
 test_init "PowerShell"
 test_init "Nodejs"
 test_init "Go"
+test_init "Kotlin"
 
 test_stdout "Bash" "Hello, 's1 ы1'\nexit code: 42\n" "s1 ы1"
 test_stdout "Python" "Hello, '['s1 ы1']'\nexit code: 42\n" "s1 ы1"
 test_stdout "PowerShell" "Hello, 's1 todo_fix_encoding1'\nexit code: 42\n" "s1 todo_fix_encoding1"
 test_stdout "Nodejs" "Hello, 's1 todo_fix_encoding1'\nexit code: 42\n" "s1 todo_fix_encoding1"
 test_stdout "Go" "Hello, 's1 todo_fix_encoding_and_exitcode1'\nexit code: 1\n" "s1 todo_fix_encoding_and_exitcode1"
+test_stdout "Kotlin" "Hello, World!\nexit code: 42\n" "s1 ы1"
 
 echo Errors: "$errors_count"
 exit $errors_count
