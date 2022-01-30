@@ -5,8 +5,6 @@ dp0_tools="$dp0/../.tools" && source "$dp0_tools/env_tools.sh"
 runtime_tools="$dp0/tools"
 mkdir -p "$runtime_tools"
 
-is_windows_os=false
-
 openjdk_linux_download_url=https://download.java.net/java/GA/jdk17.0.2/dfd4a8d0985749f896bed50d7138ee7f/8/GPL/openjdk-17.0.2_linux-x64_bin.tar.gz
 openjdk_windows_download_url=https://download.java.net/java/GA/jdk17.0.2/dfd4a8d0985749f896bed50d7138ee7f/8/GPL/openjdk-17.0.2_windows-x64_bin.zip
 openjdk_download_url="$openjdk_linux_download_url" && $is_windows_os && openjdk_download_url="$openjdk_windows_download_url"
