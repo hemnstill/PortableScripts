@@ -37,5 +37,5 @@ jobs:
           echo ">> install golang deps"
           apk add --no-cache libc6-compat
           echo ">> install java deps"
-          apk add --no-cache gcompat musl-dev
+          apk add --no-cache musl-dev
           .tests/test-run.sh
