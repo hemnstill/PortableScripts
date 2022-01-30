@@ -5,6 +5,8 @@ dp0_tools="$dp0/../.tools" && source "$dp0_tools/env_tools.sh"
 jdk_runtime_version_name=jdk-17.0.2
 $is_alpine_os && jdk_runtime_version_name=jdk-18
 JAVA_HOME="$dp0/tools/$jdk_runtime_version_name"
+PATH="$PATH:$JAVA_HOME/bin"
+
 openjdk_runtime_archive_name=openjdk-linux.tar && $is_windows_os && openjdk_runtime_archive_name=openjdk-windows.zip
 
 runtime_exe_relative_path=kotlinc/bin/kotlinc && $is_windows_os && runtime_exe_relative_path=kotlinc/bin/kotlinc.bat
