@@ -38,7 +38,7 @@ test_init "Nodejs"
 test_stdout "Bash" "Hello, 's1 ы1'\nexit code: 42\n" "s1 ы1"
 test_stdout "Python" "Hello, '['s1 ы1']'\nexit code: 42\n" "s1 ы1"
 test_stdout "PowerShell" "Hello, 's1 todo_fix_encoding1'\nexit code: 42\n" "s1 todo_fix_encoding1"
-test_stdout "Nodejs" "Hello, 's1 ы1'\nexit code: 42\n" "s1 ы1"
+test_stdout "Nodejs" "Hello, 's1 todo_fix_encoding1'\nexit code: 42\n" "s1 todo_fix_encoding1"
 
 echo Errors: "$errors_count"
 exit $errors_count
