@@ -4,7 +4,11 @@ dp0_tools="$dp0/../.tools" && source "$dp0_tools/env_tools.sh"
 
 errors_count=0
 
+echo ">> env:"
 uname -a
+echo is_windows: "$is_windows_os", is_alpine: "$is_alpine_os"
+"$busybox" | head -n 1
+"$p7z" | head -n 2 | tail -n 1
 
 function test_init() {
   local runtime_name="$1"
