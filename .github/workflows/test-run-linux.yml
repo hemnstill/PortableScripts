@@ -34,4 +34,6 @@ jobs:
               userspace-rcu \
               zlib \
               icu-libs
+          echo ">> install golang deps"
+          apk add --no-cache libc6-compat
           .tests/test-run.sh

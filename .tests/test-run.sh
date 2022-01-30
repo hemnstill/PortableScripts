@@ -4,7 +4,11 @@ dp0_tools="$dp0/../.tools" && source "$dp0_tools/env_tools.sh"
 
 errors_count=0
 
+echo ">> env:"
 uname -a
+echo is_windows: "$is_windows_os", is_alpine: "$is_alpine_os"
+"$busybox" | head -n 1
+"$p7z" | head -n 2 | tail -n 1
 
 function test_init() {
   local runtime_name="$1"
@@ -34,11 +38,13 @@ test_init "Bash"
 test_init "Python"
 test_init "PowerShell"
 test_init "Nodejs"
+test_init "Go"
 
 test_stdout "Bash" "Hello, 's1 ы1'\nexit code: 42\n" "s1 ы1"
 test_stdout "Python" "Hello, '['s1 ы1']'\nexit code: 42\n" "s1 ы1"
 test_stdout "PowerShell" "Hello, 's1 todo_fix_encoding1'\nexit code: 42\n" "s1 todo_fix_encoding1"
 test_stdout "Nodejs" "Hello, 's1 todo_fix_encoding1'\nexit code: 42\n" "s1 todo_fix_encoding1"
+test_stdout "Go" "Hello, 's1 todo_fix_encoding_and_exitcode1'\nexit code: 1\n" "s1 todo_fix_encoding_and_exitcode1"
 
 echo Errors: "$errors_count"
 exit $errors_count
