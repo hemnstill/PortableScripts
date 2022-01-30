@@ -3,8 +3,8 @@ dp0="$(dirname "$0")"
 dp0_tools="$dp0/../.tools" && source "$dp0_tools/env_tools.sh"
 
 runtime_exe_relative_path=bin/node && $is_windows_os && runtime_exe_relative_path=node.exe
-$is_alpine_os && runtime_exe_relative_path=local/bin/node
 runtime_version_name=node-v16.13.2-linux-x64 && $is_windows_os && runtime_version_name=node-v16.13.2-win-x64
+$is_alpine_os && runtime_version_name=local
 runtime_archive_name=node-linux.tar && $is_windows_os && runtime_archive_name=node-win.zip
 
 runtime_version_path="$dp0/tools/$runtime_version_name"
