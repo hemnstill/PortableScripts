@@ -19,7 +19,7 @@ jobs:
 
       - name: test-run
         run: |
-          apk add --no-cache bash zstd
+          apk add --no-cache zstd
           echo ">> install powershell deps"
           apk add --no-cache \
               ca-certificates \
@@ -36,4 +36,4 @@ jobs:
               icu-libs
           echo ">> install golang deps"
           apk add --no-cache libc6-compat
-          .tests/test-run.sh
+          ./.tools/busybox ash .tests/test-run.sh
