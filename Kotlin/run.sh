@@ -24,7 +24,12 @@ if [[ ! -f "$runtime_bin_path" ]] || $windows_lib_check; then
   errorlevel=$?; if [[ $errorlevel -ne 0 ]]; then echo "exit code: $errorlevel"; exit $errorlevel; fi
 fi
 
-"$runtime_bin_path" -script "$dp0/main.kts" "$@"
+if [[ $is_windows_os ]]; then
+  "$runtime_bin_path" -script "$dp0/main.kts" "$@"
+else
+  "$busybox" ash "$runtime_bin_path" -script "$dp0/main.kts"
+fi
+
 errorlevel=$?
 echo exit code: $errorlevel
 exit $errorlevel
