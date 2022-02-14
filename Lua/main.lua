@@ -1,4 +1,4 @@
-require("foo")
+require('foo')
 
 print(hello(table.concat(arg, " ")))
 

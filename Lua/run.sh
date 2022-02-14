@@ -16,7 +16,7 @@ if [[ ! -f "$runtime_bin_path" ]] || $windows_lib_check; then
   errorlevel=$?; if [[ $errorlevel -ne 0 ]]; then echo "exit code: $errorlevel"; exit $errorlevel; fi
 fi
 
-"$runtime_bin_path" "$dp0/main.lua" "$@"
+(cd "$dp0" && "$runtime_bin_path" "$dp0/main.lua" "$@")
 errorlevel=$?
 echo exit code: $errorlevel
 exit $errorlevel
