@@ -9,6 +9,8 @@ linux_download_url=https://sourceforge.net/projects/luabinaries/files/5.4.2/Tool
 windows_download_url=https://sourceforge.net/projects/luabinaries/files/5.4.2/Tools%20Executables/lua-5.4.2_Win64_bin.zip
 download_url="$linux_download_url" && $is_windows_os && download_url="$windows_download_url"
 runtime_zip="$runtime_tools/lua-linux.tar.gz" && $is_windows_os && runtime_zip="$runtime_tools/lua-win.zip"
-[[ ! -f "$runtime_zip" ]] && "$busybox" wget "$download_url" -O "$runtime_zip"
+
+# TODO: links to sourceforge are not stable.
+# [[ ! -f "$runtime_zip" ]] && "$busybox" wget "$download_url" -O "$runtime_zip"
 
 $is_windows_os || ([[ ! -f "$runtime_tools/lua-linux.tar" ]] && "$p7z" e "$runtime_zip" "-o$runtime_tools" -aoa -r)
