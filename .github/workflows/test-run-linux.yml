@@ -6,34 +6,34 @@ jobs:
   ubuntu-host:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - name: test-run
-        run: .tests/test-run.sh
+    - name: test-run
+      run: .tests/test-run.sh
 
   alpine-docker:
     runs-on: ubuntu-latest
     container: alpine:latest
     steps:
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - name: test-run
-        run: |
-          apk add --no-cache bash zstd
-          echo ">> install powershell deps"
-          apk add --no-cache \
-              ca-certificates \
-              less \
-              ncurses-terminfo-base \
-              krb5-libs \
-              libgcc \
-              libintl \
-              libssl1.1 \
-              libstdc++ \
-              tzdata \
-              userspace-rcu \
-              zlib \
-              icu-libs
-          echo ">> install golang deps"
-          apk add --no-cache libc6-compat
-          .tests/test-run.sh
+    - name: test-run
+      run: |
+        apk add --no-cache bash zstd
+        echo ">> install powershell deps"
+        apk add --no-cache \
+            ca-certificates \
+            less \
+            ncurses-terminfo-base \
+            krb5-libs \
+            libgcc \
+            libintl \
+            libssl1.1 \
+            libstdc++ \
+            tzdata \
+            userspace-rcu \
+            zlib \
+            icu-libs
+        echo ">> install golang deps"
+        apk add --no-cache libc6-compat
+        .tests/test-run.sh
