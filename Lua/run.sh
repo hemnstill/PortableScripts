@@ -2,8 +2,8 @@
 dp0="$(dirname "$0")"
 dp0_tools="$dp0/../.tools" && source "$dp0_tools/env_tools.sh"
 
-runtime_exe_relative_path=lua54 && $is_windows_os && runtime_exe_relative_path=lua54.exe
-runtime_version_name=lua54.linux && $is_windows_os && runtime_version_name=lua54.windows
+runtime_exe_relative_path=slua-0.8/bin/slua-x64 && $is_windows_os && runtime_exe_relative_path=lua54.exe
+runtime_version_name=. && $is_windows_os && runtime_version_name=lua54.windows
 runtime_archive_name=lua-linux.tar && $is_windows_os && runtime_archive_name=lua-win.zip
 
 runtime_version_path="$dp0/tools/$runtime_version_name"
