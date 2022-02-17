@@ -41,6 +41,7 @@ test_init "Nodejs"
 test_init "Go"
 test_init "Kotlin"
 test_init "Lua"
+test_init "Ruby"
 
 test_stdout "Bash" "Hello, 's1 ы1'\nexit code: 42\n" "s1 ы1"
 test_stdout "Python" "Hello, '['s1 ы1']'\nexit code: 42\n" "s1 ы1"
@@ -49,6 +50,7 @@ test_stdout "Nodejs" "Hello, 's1 todo_fix_encoding1'\nexit code: 42\n" "s1 todo_
 test_stdout "Go" "Hello, 's1 todo_fix_encoding_and_exitcode1'\nexit code: 1\n" "s1 todo_fix_encoding_and_exitcode1"
 test_stdout "Kotlin" "Hello, World!\nexit code: 42\n" "s1 ы1"
 test_stdout "Lua" "Hello, 's1 ы1'\nexit code: 42\n" "s1 ы1"
+$is_nanoserver_os || test_stdout "Ruby" "Hello, [\"s1 todo_fix_encoding1\"]\nexit code: 42\n" "s1 todo_fix_encoding1"
 
 echo Errors: "$errors_count"
 exit $errors_count
