@@ -31,7 +31,7 @@ jobs:
     - name: test-run
       shell: cmd
       run: |
-        .\tools\busybox64.exe sh .\Python\test-run.sh
+        .tools\busybox64.exe sh Python\test-run.sh
 
   python-nanoserver-docker:
     runs-on: windows-2022
@@ -50,4 +50,4 @@ jobs:
       shell: cmd
       run: >
         docker container run --rm --env CI=true -v ${{ github.workspace }}:C:\app -w C:\app ${{ env.IMAGE_NAME }}
-        .\tools\busybox64.exe sh .\Python\test-run.sh
+        .tools\busybox64.exe sh Python\test-run.sh
