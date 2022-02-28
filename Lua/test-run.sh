@@ -13,8 +13,8 @@ echo is_windows: "$is_windows_os", is_alpine: "$is_alpine_os"
 function test_init() {
   local runtime_name="$1"
   echo ">> Init ($runtime_name)"
-  "$dp0/../$runtime_name/init.sh"
-  "$dp0/../$runtime_name/run.sh"
+  "$dp0/init.sh"
+  "$dp0/run.sh"
 }
 
 function test_stdout() {
@@ -34,9 +34,8 @@ function test_stdout() {
   fi
 }
 
-test_init "Ruby"
-
-$is_nanoserver_os || test_stdout "Ruby" "Hello, [\"s1 todo_fix_encoding1\"]\nexit code: 42\n" "s1 todo_fix_encoding1"
+test_init "Lua"
+test_stdout "Lua" "Hello, 's1 ы1'\nexit code: 42\n" "s1 ы1"
 
 echo Errors: "$errors_count"
 exit $errors_count
