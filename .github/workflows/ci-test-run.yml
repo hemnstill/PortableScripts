@@ -1,0 +1,421 @@
+name: ci test-run
+
+on: [pull_request]
+
+env:
+  IMAGE_NAME: mcr.microsoft.com/windows/nanoserver:ltsc2022-amd64
+  CURRENT_RUNTIME: 'Ruby'
+
+jobs:
+  prejob:
+    runs-on: ubuntu-latest
+    outputs:
+      runtime: ${{ steps.setvar.outputs.envvar }}
+    steps:
+      - id: setvar
+        run: echo "::set-output name=envvar::$CURRENT_RUNTIME"
+
+  Bash-ubuntu-host:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Bash' }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      run: ./Bash/test-run.sh
+
+  Bash-alpine-docker:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Bash' }}
+    runs-on: ubuntu-latest
+    container: alpine:latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      run: |
+        apk add --no-cache bash
+        ./Bash/test-run.sh
+
+  Bash-windows-host:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Bash' }}
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      shell: cmd
+      run: |
+        .tools\busybox64.exe sh Bash\test-run.sh
+
+  Bash-nanoserver-docker:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Bash' }}
+    runs-on: windows-2022
+    steps:
+    - uses: actions/checkout@v2
+    - name: pull windows container ${{ env.IMAGE_NAME }}
+      shell: cmd
+      run: |
+        docker pull ${{ env.IMAGE_NAME }}
+        docker images ${{ env.IMAGE_NAME }}
+
+    - name: test-run
+      shell: cmd
+      run: >
+        docker container run --rm --env CI=true -v ${{ github.workspace }}:C:\app -w C:\app ${{ env.IMAGE_NAME }}
+        .tools\busybox64.exe sh Bash\test-run.sh
+
+  Python-ubuntu-host:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Python' }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      run: ./Python/test-run.sh
+
+  Python-alpine-docker:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Python' }}
+    runs-on: ubuntu-latest
+    container: alpine:latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      run: |
+        apk add --no-cache bash zstd
+        ./Python/test-run.sh
+
+  Python-windows-host:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Python' }}
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      shell: cmd
+      run: |
+        .tools\busybox64.exe sh Python\test-run.sh
+
+  Python-nanoserver-docker:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Python' }}
+    runs-on: windows-2022
+    steps:
+    - uses: actions/checkout@v2
+    - name: pull windows container ${{ env.IMAGE_NAME }}
+      shell: cmd
+      run: |
+        docker pull ${{ env.IMAGE_NAME }}
+        docker images ${{ env.IMAGE_NAME }}
+
+    - name: test-run
+      shell: cmd
+      run: >
+        docker container run --rm --env CI=true -v ${{ github.workspace }}:C:\app -w C:\app ${{ env.IMAGE_NAME }}
+        .tools\busybox64.exe sh Python\test-run.sh
+
+  Go-ubuntu-host:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Go' }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      run: ./Go/test-run.sh
+
+  Go-alpine-docker:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Go' }}
+    runs-on: ubuntu-latest
+    container: alpine:latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      run: |
+        apk add --no-cache bash
+        echo ">> install golang deps"
+        wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
+        wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.34-r0/glibc-2.34-r0.apk
+        apk add --no-cache glibc-2.34-r0.apk             
+        ./Go/test-run.sh
+
+  Go-windows-host:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Go' }}
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      shell: cmd
+      run: |
+        .tools\busybox64.exe sh Go\test-run.sh
+
+  Go-nanoserver-docker:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Go' }}
+    runs-on: windows-2022
+    steps:
+    - uses: actions/checkout@v2
+    - name: pull windows container ${{ env.IMAGE_NAME }}
+      shell: cmd
+      run: |
+        docker pull ${{ env.IMAGE_NAME }}
+        docker images ${{ env.IMAGE_NAME }}
+
+    - name: test-run
+      shell: cmd
+      run: >
+        docker container run --rm --env CI=true -v ${{ github.workspace }}:C:\app -w C:\app ${{ env.IMAGE_NAME }}
+        .tools\busybox64.exe sh Go\test-run.sh
+
+  Kotlin-ubuntu-host:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Kotlin' }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      run: ./Kotlin/test-run.sh
+
+  Kotlin-alpine-docker:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Kotlin' }}
+    runs-on: ubuntu-latest
+    container: alpine:latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      run: |
+        apk add --no-cache bash
+        ./Kotlin/test-run.sh
+
+  Kotlin-windows-host:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Kotlin' }}
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      shell: cmd
+      run: |
+        .tools\busybox64.exe sh Kotlin\test-run.sh
+
+  Kotlin-nanoserver-docker:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Kotlin' }}
+    runs-on: windows-2022
+    steps:
+    - uses: actions/checkout@v2
+    - name: pull windows container ${{ env.IMAGE_NAME }}
+      shell: cmd
+      run: |
+        docker pull ${{ env.IMAGE_NAME }}
+        docker images ${{ env.IMAGE_NAME }}
+
+    - name: test-run
+      shell: cmd
+      run: >
+        docker container run --rm --env CI=true -v ${{ github.workspace }}:C:\app -w C:\app ${{ env.IMAGE_NAME }}
+        .tools\busybox64.exe sh Kotlin\test-run.sh
+
+  Lua-ubuntu-host:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Lua' }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      run: ./Lua/test-run.sh
+
+  Lua-alpine-docker:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Lua' }}
+    runs-on: ubuntu-latest
+    container: alpine:latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      run: |
+        apk add --no-cache bash
+        ./Lua/test-run.sh
+
+  Lua-windows-host:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Lua' }}
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      shell: cmd
+      run: |
+        .tools\busybox64.exe sh Lua\test-run.sh
+
+  Lua-nanoserver-docker:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Lua' }}
+    runs-on: windows-2022
+    steps:
+    - uses: actions/checkout@v2
+    - name: pull windows container ${{ env.IMAGE_NAME }}
+      shell: cmd
+      run: |
+        docker pull ${{ env.IMAGE_NAME }}
+        docker images ${{ env.IMAGE_NAME }}
+
+    - name: test-run
+      shell: cmd
+      run: >
+        docker container run --rm --env CI=true -v ${{ github.workspace }}:C:\app -w C:\app ${{ env.IMAGE_NAME }}
+        .tools\busybox64.exe sh Lua\test-run.sh
+
+  Nodejs-ubuntu-host:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Nodejs' }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      run: ./Nodejs/test-run.sh
+
+  Nodejs-alpine-docker:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Nodejs' }}
+    runs-on: ubuntu-latest
+    container: alpine:latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      run: |
+        apk add --no-cache bash
+        ./Nodejs/test-run.sh
+
+  Nodejs-windows-host:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Nodejs' }}
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      shell: cmd
+      run: |
+        .tools\busybox64.exe sh Nodejs\test-run.sh
+
+  Nodejs-nanoserver-docker:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Nodejs' }}
+    runs-on: windows-2022
+    steps:
+    - uses: actions/checkout@v2
+    - name: pull windows container ${{ env.IMAGE_NAME }}
+      shell: cmd
+      run: |
+        docker pull ${{ env.IMAGE_NAME }}
+        docker images ${{ env.IMAGE_NAME }}
+
+    - name: test-run
+      shell: cmd
+      run: >
+        docker container run --rm --env CI=true -v ${{ github.workspace }}:C:\app -w C:\app ${{ env.IMAGE_NAME }}
+        .tools\busybox64.exe sh Nodejs\test-run.sh
+
+  PowerShell-ubuntu-host:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='PowerShell' }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      run: ./Bash/test-run.sh
+
+  PowerShell-alpine-docker:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='PowerShell' }}
+    runs-on: ubuntu-latest
+    container: alpine:latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      run: |
+        apk add --no-cache bash
+        echo ">> install powershell deps"
+        apk add --no-cache \
+            ca-certificates \
+            less \
+            ncurses-terminfo-base \
+            krb5-libs \
+            libgcc \
+            libintl \
+            libssl1.1 \
+            libstdc++ \
+            tzdata \
+            userspace-rcu \
+            zlib \
+            icu-libs
+        ./PowerShell/test-run.sh
+
+  PowerShell-windows-host:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='PowerShell' }}
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      shell: cmd
+      run: |
+        .tools\busybox64.exe sh PowerShell\test-run.sh
+
+  PowerShell-nanoserver-docker:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='PowerShell' }}
+    runs-on: windows-2022
+    steps:
+    - uses: actions/checkout@v2
+    - name: pull windows container ${{ env.IMAGE_NAME }}
+      shell: cmd
+      run: |
+        docker pull ${{ env.IMAGE_NAME }}
+        docker images ${{ env.IMAGE_NAME }}
+
+    - name: test-run
+      shell: cmd
+      run: >
+        docker container run --rm --env CI=true -v ${{ github.workspace }}:C:\app -w C:\app ${{ env.IMAGE_NAME }}
+        .tools\busybox64.exe sh PowerShell\test-run.sh
+
+  Ruby-ubuntu-host:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Ruby' }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      run: ./Ruby/test-run.sh
+
+  Ruby-alpine-docker:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Ruby' }}
+    runs-on: ubuntu-latest
+    container: alpine:latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      run: |
+        apk add --no-cache bash
+        echo ">> install ruby deps"
+        wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
+        wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.34-r0/glibc-2.34-r0.apk
+        apk add --no-cache glibc-2.34-r0.apk             
+        ./Ruby/test-run.sh
+
+  Ruby-windows-host:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='Ruby' }}
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      shell: cmd
+      run: |
+        .tools\busybox64.exe sh Ruby\test-run.sh
+
