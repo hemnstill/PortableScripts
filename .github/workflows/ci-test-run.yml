@@ -4,7 +4,7 @@ on: [pull_request]
 
 env:
   IMAGE_NAME: mcr.microsoft.com/windows/nanoserver:ltsc2022-amd64
-  CURRENT_RUNTIME: 'Bash'
+  CURRENT_RUNTIME: 'PowerShell'
 
 jobs:
   prejob:
@@ -134,6 +134,10 @@ jobs:
     - name: test-run
       run: |
         apk add --no-cache bash
+        echo ">> install golang deps"
+        wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
+        wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.34-r0/glibc-2.34-r0.apk
+        apk add --no-cache glibc-2.34-r0.apk             
         ./Go/test-run.sh
 
   Go-windows-host:
@@ -334,6 +338,20 @@ jobs:
     - name: test-run
       run: |
         apk add --no-cache bash
+        echo ">> install powershell deps"
+        apk add --no-cache \
+            ca-certificates \
+            less \
+            ncurses-terminfo-base \
+            krb5-libs \
+            libgcc \
+            libintl \
+            libssl1.1 \
+            libstdc++ \
+            tzdata \
+            userspace-rcu \
+            zlib \
+            icu-libs
         ./PowerShell/test-run.sh
 
   PowerShell-windows-host:
@@ -384,6 +402,10 @@ jobs:
     - name: test-run
       run: |
         apk add --no-cache bash
+        echo ">> install ruby deps"
+        wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
+        wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.34-r0/glibc-2.34-r0.apk
+        apk add --no-cache glibc-2.34-r0.apk             
         ./Ruby/test-run.sh
 
   Ruby-windows-host:
