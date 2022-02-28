@@ -19,6 +19,7 @@ jobs:
 
     - name: test-run
       run: |
+        apk add --no-cache bash
         echo ">> install powershell deps"
         apk add --no-cache \
             ca-certificates \
