@@ -4,41 +4,53 @@ on: [pull_request]
 
 env:
   IMAGE_NAME: mcr.microsoft.com/windows/nanoserver:ltsc2022-amd64
+  CURRENT_RUNTIME: 'python'
 
 jobs:
+  prejob:
+    runs-on: ubuntu-latest
+    outputs:
+      runtime: ${{ steps.setvar.outputs.envvar }}
+    steps:
+      - id: setvar
+        run: echo "::set-output name=envvar::$CURRENT_RUNTIME"
+
   bash-ubuntu-host:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='bash' }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-
     - name: test-run
       run: ./Bash/test-run.sh
 
   bash-alpine-docker:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='bash' }}
     runs-on: ubuntu-latest
     container: alpine:latest
     steps:
     - uses: actions/checkout@v2
-
     - name: test-run
       run: |
         apk add --no-cache bash
         ./Bash/test-run.sh
 
   bash-windows-host:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='bash' }}
     runs-on: windows-latest
-
     steps:
     - uses: actions/checkout@v2
-
     - name: test-run
       shell: cmd
       run: |
         .tools\busybox64.exe sh Bash\test-run.sh
 
   bash-nanoserver-docker:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='bash' }}
     runs-on: windows-2022
-
     steps:
     - uses: actions/checkout@v2
     - name: pull windows container ${{ env.IMAGE_NAME }}
@@ -54,38 +66,41 @@ jobs:
         .tools\busybox64.exe sh Bash\test-run.sh
 
   python-ubuntu-host:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='python' }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-
     - name: test-run
       run: ./Python/test-run.sh
 
   python-alpine-docker:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='python' }}
     runs-on: ubuntu-latest
     container: alpine:latest
     steps:
     - uses: actions/checkout@v2
-
     - name: test-run
       run: |
         apk add --no-cache bash zstd
         ./Python/test-run.sh
 
   python-windows-host:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='python' }}
     runs-on: windows-latest
-
     steps:
     - uses: actions/checkout@v2
-
     - name: test-run
       shell: cmd
       run: |
         .tools\busybox64.exe sh Python\test-run.sh
 
   python-nanoserver-docker:
+    needs: prejob
+    if: ${{ needs.prejob.outputs.runtime=='python' }}
     runs-on: windows-2022
-
     steps:
     - uses: actions/checkout@v2
     - name: pull windows container ${{ env.IMAGE_NAME }}
