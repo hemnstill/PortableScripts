@@ -1,5 +1,5 @@
 #!/bin/bash
-dp0="$(dirname "$0")"
+dp0="$(realpath "$(dirname "$0")")"
 dp0_tools="$dp0/../.tools" && source "$dp0_tools/env_tools.sh"
 
 runtime_version_name=busybox-1.35-linux && $is_windows_os && runtime_version_name=busybox-1.35-win

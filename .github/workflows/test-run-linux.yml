@@ -6,34 +6,36 @@ jobs:
   ubuntu-host:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - name: test-run
-        run: .tests/test-run.sh
+    - name: test-run
+      run: .tests/test-run.sh
 
   alpine-docker:
     runs-on: ubuntu-latest
     container: alpine:latest
     steps:
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - name: test-run
-        run: |
-          apk add --no-cache bash zstd
-          echo ">> install powershell deps"
-          apk add --no-cache \
-              ca-certificates \
-              less \
-              ncurses-terminfo-base \
-              krb5-libs \
-              libgcc \
-              libintl \
-              libssl1.1 \
-              libstdc++ \
-              tzdata \
-              userspace-rcu \
-              zlib \
-              icu-libs
-          echo ">> install golang deps"
-          apk add --no-cache libc6-compat
-          .tests/test-run.sh
+    - name: test-run
+      run: |
+        apk add --no-cache bash zstd
+        echo ">> install powershell deps"
+        apk add --no-cache \
+            ca-certificates \
+            less \
+            ncurses-terminfo-base \
+            krb5-libs \
+            libgcc \
+            libintl \
+            libssl1.1 \
+            libstdc++ \
+            tzdata \
+            userspace-rcu \
+            zlib \
+            icu-libs
+        echo ">> install golang and ruby deps"
+        wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
+        wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.34-r0/glibc-2.34-r0.apk
+        apk add --no-cache glibc-2.34-r0.apk        
+        .tests/test-run.sh
