@@ -7,7 +7,7 @@ PYTHONIOENCODING=UTF-8
 runtime_exe_relative_path=bin/python3 && $is_windows_os && runtime_exe_relative_path=python.exe
 runtime_archive_name=cpython-linux.tar && $is_windows_os && runtime_archive_name=cpython-win.tar
 
-runtime_version_path="$dp0/tools/python/install"
+runtime_version_path="$dp0/tools/python/install" && $is_windows_os && runtime_version_path="$dp0/tools/python"
 runtime_bin_path="$runtime_version_path/$runtime_exe_relative_path"
 windows_lib_check=false && $is_windows_os && [[ ! -f "$runtime_version_path/Lib/subprocess.py" ]] && windows_lib_check=true
 if [[ ! -f "$runtime_bin_path" ]] || $windows_lib_check; then
