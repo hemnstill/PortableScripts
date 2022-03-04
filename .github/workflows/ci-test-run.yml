@@ -1,19 +1,22 @@
 name: ci test-run
 
-on: [pull_request]
+on: [pull_request, workflow_dispatch]
 
 env:
   IMAGE_NAME: mcr.microsoft.com/windows/nanoserver:ltsc2022-amd64
-  CURRENT_RUNTIME: 'Ruby'
 
 jobs:
   prejob:
     runs-on: ubuntu-latest
+    environment: release
     outputs:
       runtime: ${{ steps.setvar.outputs.envvar }}
     steps:
       - id: setvar
-        run: echo "::set-output name=envvar::$CURRENT_RUNTIME"
+        run: |
+          echo ${{ secrets._CURRENT_RUNTIME }} > CI_ENV
+          echo "::set-output name=envvar::$(sed -e 's/^_//' CI_ENV)"
+      - run: echo CURRENT_RUNTIME '${{ steps.setvar.outputs.envvar }}'
 
   Bash-ubuntu-host:
     needs: prejob
