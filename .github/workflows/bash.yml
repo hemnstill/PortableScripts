@@ -3,9 +3,9 @@ name: example action
 on: [pull_request]
 
 jobs:
-  Bash-ubuntu-host:
+  Bash:
     uses: ./.github/workflows/script.yml
     with:
-      _this: 'bash'
+      _this: github.job
     secrets:
       _CURRENT_RUNTIME: ${{ secrets._CURRENT_RUNTIME }}
