@@ -1,11 +1,11 @@
-name: example action
+name: bash
 
 on: [pull_request]
 
 jobs:
-  Bash:
-    uses: ./.github/workflows/script.yml
+  bash:
+    uses: ./.github/workflows/script-test-run.yml
     with:
-      _this: 'bash'
+      _this: $GITHUB_JOB
     secrets:
       _CURRENT_RUNTIME: ${{ secrets._CURRENT_RUNTIME }}
