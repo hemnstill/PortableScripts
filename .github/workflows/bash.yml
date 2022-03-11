@@ -3,14 +3,20 @@ name: example action
 on: [pull_request]
 
 jobs:
-  hello_world_job:
+  prejob:
     runs-on: ubuntu-latest
-    name: A job to say hello
+    environment: release
     steps:
-      - uses: actions/checkout@v2
-      - id: foo
+      - id: var
         uses: ./.github/actions/set-output-action
         with:
-          who-to-greet: 'Mona the Octocat'
-      - run: echo random-number ${{ steps.foo.outputs.random-number }}
-        shell: bash
+          _runtime: ${{ secrets._CURRENT_RUNTIME }}
+
+  Bash-ubuntu-host:
+    needs: prejob
+    if: ${{ needs.prejob.var.runtime=='Bash' }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      run: ./Bash/test-run.sh
