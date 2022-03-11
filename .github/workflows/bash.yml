@@ -14,3 +14,5 @@ jobs:
     - name: test-run
       if: ${{ steps.var.outputs.runtime == 'bash' }}
       run: ./Bash/test-run.sh
+    - name: test-run
+      run: echo "should not start"
