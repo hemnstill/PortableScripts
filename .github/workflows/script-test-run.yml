@@ -67,8 +67,7 @@ jobs:
   nanoserver-docker:
     needs: prejob
     if: |
-      ${{ inputs.disable_nanoserver != true }} &&
-      ${{ needs.prejob.outputs.workflow == inputs.workflow }}
+      ${{ !inputs.disable_nanoserver && needs.prejob.outputs.workflow == inputs.workflow }}
     runs-on: windows-2022
     steps:
     - uses: actions/checkout@v2
