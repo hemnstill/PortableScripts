@@ -28,7 +28,7 @@ jobs:
 
   ubuntu-host:
     needs: prejob
-    if: needs.prejob.outputs.runtime==${{ inputs._this }}
+    if: ${{ needs.prejob.outputs.runtime == inputs._this }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
