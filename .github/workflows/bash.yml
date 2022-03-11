@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: release
     steps:
+      - uses: actions/checkout@v2
       - id: var
         uses: ./.github/actions/set-output-action
         with:
