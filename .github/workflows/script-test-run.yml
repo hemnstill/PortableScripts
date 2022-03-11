@@ -24,7 +24,7 @@ jobs:
         run: |
           echo ${{ secrets._CURRENT_RUNTIME }} > CI_ENV
           echo "::set-output name=envvar::$(sed -e 's/^_//' CI_ENV)"
-      - run: echo CURRENT_RUNTIME '${{ steps.setvar.outputs.envvar }}'
+      - run: echo "this:" '${{ inputs._this }}', "CURRENT_RUNTIME:" '${{ steps.setvar.outputs.envvar }}'
 
   ubuntu-host:
     needs: prejob
