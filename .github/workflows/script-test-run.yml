@@ -10,6 +10,7 @@ on:
       disable_nanoserver:
         required: false
         type: boolean
+        default: false
     secrets:
       _WORKFLOW:
         required: true
@@ -66,7 +67,7 @@ jobs:
   nanoserver-docker:
     needs: prejob
     if: |
-      ${{ ! inputs.disable_nanoserver }} &&
+      ! ${{ inputs.disable_nanoserver }} &&
       ${{ needs.prejob.outputs.workflow == inputs.workflow }}
     runs-on: windows-2022
     steps:
