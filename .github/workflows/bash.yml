@@ -7,5 +7,3 @@ jobs:
     uses: ./.github/workflows/script-test-run.yml
     with:
       _this: ${{ github.workflow }}
-    secrets:
-      _CURRENT_RUNTIME: ${{ secrets._CURRENT_RUNTIME }}

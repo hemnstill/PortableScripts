@@ -6,9 +6,6 @@ on:
       _this:
         required: true
         type: string
-    secrets:
-      _CURRENT_RUNTIME:
-        required: true
 
 env:
   IMAGE_NAME: mcr.microsoft.com/windows/nanoserver:ltsc2022-amd64
