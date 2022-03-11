@@ -1,0 +1,27 @@
+name: PowerShell
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  test-run:
+    uses: ./.github/workflows/script-test-run.yml
+    with:
+      workflow: ${{ github.workflow }}
+      alpine_deps: |
+        echo ">> install powershell deps"
+        apk add --no-cache \
+            ca-certificates \
+            less \
+            ncurses-terminfo-base \
+            krb5-libs \
+            libgcc \
+            libintl \
+            libssl1.1 \
+            libstdc++ \
+            tzdata \
+            userspace-rcu \
+            zlib \
+            icu-libs
+
+    secrets:
+      _WORKFLOW: ${{ secrets._CURRENT_RUNTIME }}

@@ -1,0 +1,11 @@
+name: Lua
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  test-run:
+    uses: ./.github/workflows/script-test-run.yml
+    with:
+      workflow: ${{ github.workflow }}
+    secrets:
+      _WORKFLOW: ${{ secrets._CURRENT_RUNTIME }}
