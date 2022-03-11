@@ -7,4 +7,5 @@ jobs:
     uses: ./.github/workflows/script.yml
     with:
       _this: 'bash'
-      _runtime: ${{ secrets._CURRENT_RUNTIME }}
+    secrets:
+      _CURRENT_RUNTIME: ${{ secrets._CURRENT_RUNTIME }}

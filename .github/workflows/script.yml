@@ -7,7 +7,7 @@ on:
         required: true
         type: string
     secrets:
-      _runtime:
+      _CURRENT_RUNTIME:
         required: true
 
 env:
