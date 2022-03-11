@@ -7,6 +7,9 @@ on:
       alpine_deps:
         required: false
         type: string
+      disable_nanoserver:
+        required: false
+        type: boolean
     secrets:
       _WORKFLOW:
         required: true
@@ -62,7 +65,9 @@ jobs:
 
   nanoserver-docker:
     needs: prejob
-    if: ${{ needs.prejob.outputs.workflow == inputs.workflow }}
+    if: |
+      ! ${{ inputs.disable_nanoserver }} &&
+      ${{ needs.prejob.outputs.workflow == inputs.workflow }}
     runs-on: windows-2022
     steps:
     - uses: actions/checkout@v2
