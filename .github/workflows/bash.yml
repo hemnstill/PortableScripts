@@ -6,6 +6,6 @@ jobs:
   bash:
     uses: ./.github/workflows/script-test-run.yml
     with:
-      _this: ${{ env.GITHUB_JOB }}
+      _this: ${{ github.job }}
     secrets:
       _CURRENT_RUNTIME: ${{ secrets._CURRENT_RUNTIME }}
