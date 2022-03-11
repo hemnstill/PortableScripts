@@ -4,15 +4,7 @@ on: [pull_request]
 
 jobs:
   Bash-ubuntu-host:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - id: var
-      uses: ./.github/actions/set-output-action
-      with:
-        _runtime: ${{ secrets._CURRENT_RUNTIME }}
-    - name: test-run
-      if: ${{ steps.var.outputs.runtime == 'bash' }}
-      run: ./Bash/test-run.sh
-    - name: test-run
-      run: echo "should not start"
+    uses: ./.github/workflows/script.yml
+    with:
+      _this: 'bash'
+      _runtime: ${{ secrets._CURRENT_RUNTIME }}

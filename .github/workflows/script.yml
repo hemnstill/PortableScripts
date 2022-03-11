@@ -1,0 +1,36 @@
+name: Reusable workflow example
+
+on:
+  workflow_call:
+    inputs:
+      _this:
+        required: true
+        type: string
+    secrets:
+      _runtime:
+        required: true
+
+env:
+  IMAGE_NAME: mcr.microsoft.com/windows/nanoserver:ltsc2022-amd64
+
+jobs:
+  prejob:
+    runs-on: ubuntu-latest
+    environment: release
+    outputs:
+      runtime: ${{ steps.setvar.outputs.envvar }}
+    steps:
+      - id: setvar
+        run: |
+          echo ${{ secrets._CURRENT_RUNTIME }} > CI_ENV
+          echo "::set-output name=envvar::$(sed -e 's/^_//' CI_ENV)"
+      - run: echo CURRENT_RUNTIME '${{ steps.setvar.outputs.envvar }}'
+
+  ubuntu-host:
+    needs: prejob
+    if: needs.prejob.outputs.runtime==${{ inputs._this }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: test-run
+      run: ./Bash/test-run.sh
