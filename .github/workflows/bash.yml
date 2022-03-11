@@ -3,21 +3,14 @@ name: example action
 on: [pull_request]
 
 jobs:
-  prejob:
-    runs-on: ubuntu-latest
-    environment: release
-    steps:
-      - uses: actions/checkout@v2
-      - id: var
-        uses: ./.github/actions/set-output-action
-        with:
-          _runtime: ${{ secrets._CURRENT_RUNTIME }}
-
   Bash-ubuntu-host:
-    needs: prejob
-    if: ${{ needs.prejob.var.runtime=='Bash' }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - id: var
+      uses: ./.github/actions/set-output-action
+      with:
+        _runtime: ${{ secrets._CURRENT_RUNTIME }}
     - name: test-run
+      if: ${{ steps.var.outputs.runtime == 'bash' }}
       run: ./Bash/test-run.sh
