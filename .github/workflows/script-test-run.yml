@@ -10,7 +10,6 @@ on:
       disable_nanoserver:
         required: false
         type: boolean
-        default: false
     secrets:
       _WORKFLOW:
         required: true
