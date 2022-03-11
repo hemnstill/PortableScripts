@@ -3,9 +3,9 @@ name: bash
 on: [pull_request]
 
 jobs:
-  bash:
+  Bash-test-run:
     uses: ./.github/workflows/script-test-run.yml
     with:
-      _this: ${{ github.job }}
+      _this: ${{ github.workflow }}
     secrets:
       _CURRENT_RUNTIME: ${{ secrets._CURRENT_RUNTIME }}
