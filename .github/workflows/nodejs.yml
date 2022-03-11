@@ -7,6 +7,5 @@ jobs:
     uses: ./.github/workflows/script-test-run.yml
     with:
       workflow: ${{ github.workflow }}
-      alpine_deps: apk add --no-cache bash
     secrets:
       _WORKFLOW: ${{ secrets._CURRENT_RUNTIME }}

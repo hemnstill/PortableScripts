@@ -3,7 +3,7 @@ name: Bash
 on: [pull_request, workflow_dispatch]
 
 jobs:
-  Bash-test-run:
+  test-run:
     uses: ./.github/workflows/script-test-run.yml
     with:
       workflow: ${{ github.workflow }}
