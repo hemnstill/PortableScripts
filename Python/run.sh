@@ -5,7 +5,7 @@ dp0_tools="$dp0/../.tools" && source "$dp0_tools/env_tools.sh"
 PYTHONIOENCODING=UTF-8
 
 runtime_exe_relative_path=bin/python3 && $is_windows_os && runtime_exe_relative_path=python.exe
-runtime_archive_name=cpython-linux.tar && $is_windows_os && runtime_archive_name=cpython-win.tar
+runtime_archive_name=cpython-linux.tar.zst && $is_windows_os && runtime_archive_name=cpython-win.tar.zst
 
 runtime_version_path="$dp0/tools/python/install"
 runtime_bin_path="$runtime_version_path/$runtime_exe_relative_path"
