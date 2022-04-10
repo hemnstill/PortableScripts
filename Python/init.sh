@@ -1,9 +1,7 @@
 #!/bin/bash
-set -e
 dp0="$(realpath "$(dirname "$0")")"
 dp0_tools="$dp0/../.tools" && source "$dp0_tools/env_tools.sh"
-
-
+set -e
 runtime_tools="$dp0/tools"
 mkdir -p "$runtime_tools"
 
@@ -16,7 +14,7 @@ cpython_zip="$runtime_tools/raw_cpython-linux.tar.zst" && $is_windows_os && cpyt
 cpython_tar_zstd="$runtime_tools/cpython-linux.tar.zst" && $is_windows_os && cpython_tar_zstd="$runtime_tools/cpython-win.tar.zst"
 if [[ ! -f "$cpython_tar_zstd" ]]; then
   echo repacking "$cpython_zip" to "$cpython_tar_zstd" ...
-  mkdir -p "$dp0/.tmp" && cd "$dp0/.tmp"
+  mkdir -p "$dp0/.tmp" && cd "$dp0/.tmp" || exit 1
   "$bsdtar" \
   --exclude="__pycache__" \
   --exclude="test" \
