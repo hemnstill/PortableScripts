@@ -7,3 +7,5 @@ p7z="$dp0_tools/7zzs" && $is_windows_os && p7z="$dp0_tools/7z.exe"
 
 busybox_filename=busybox && $is_windows_os && busybox_filename=busybox64.exe
 busybox="$dp0_tools/$busybox_filename"
+
+bsdtar="$dp0_tools/bsdtar" && $is_windows_os && bsdtar="$dp0_tools\bsdtar.exe"
