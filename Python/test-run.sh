@@ -13,7 +13,7 @@ echo is_windows: "$is_windows_os", is_alpine: "$is_alpine_os"
 function test_init() {
   local runtime_name="$1"
   echo ">> Init ($runtime_name)"
-  "$dp0/init.sh"
+  "$dp0/init.sh" || exit 1
   "$dp0/run.sh"
 }
 
