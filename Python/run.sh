@@ -13,7 +13,7 @@ windows_lib_check=false && $is_windows_os && [[ ! -f "$runtime_version_path/Lib/
 if [[ ! -f "$runtime_bin_path" ]] || $windows_lib_check; then
   echo "file '$runtime_bin_path' does not exists.";
   echo "extracting '$runtime_archive_name' to '$dp0/tools' ...";
-  "$p7z" -bd x "$dp0/tools/$runtime_archive_name" "-o$dp0/tools" -aoa;
+  "$bsdtar" -xf "$dp0/tools/$runtime_archive_name" -C "$dp0/tools";
   errorlevel=$?; if [[ $errorlevel -ne 0 ]]; then echo "exit code: $errorlevel"; exit $errorlevel; fi
 fi
 
