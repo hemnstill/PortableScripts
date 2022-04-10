@@ -1,6 +1,8 @@
 #!/bin/bash
+set -e
 dp0="$(realpath "$(dirname "$0")")"
 dp0_tools="$dp0/../.tools" && source "$dp0_tools/env_tools.sh"
+
 
 runtime_tools="$dp0/tools"
 mkdir -p "$runtime_tools"
@@ -14,6 +16,7 @@ cpython_zip="$runtime_tools/raw_cpython-linux.tar.zst" && $is_windows_os && cpyt
 cpython_tar_zstd="$runtime_tools/cpython-linux.tar.zst" && $is_windows_os && cpython_tar_zstd="$runtime_tools/cpython-win.tar.zst"
 if [[ ! -f "$cpython_tar_zstd" ]]; then
   echo repacking "$cpython_zip" to "$cpython_tar_zstd" ...
+  mkdir -p "$dp0/.tmp" && cd "$dp0/.tmp"
   "$bsdtar" \
   --exclude="__pycache__" \
   --exclude="test" \
@@ -28,9 +31,9 @@ if [[ ! -f "$cpython_tar_zstd" ]]; then
   --exclude="*.pickle" \
   --exclude="pythonw.exe" \
   --exclude="python/install/include" \
+  --exclude="tcl*.dll" \
+  --exclude="tk*.dll" \
+  --exclude="python/install/tcl" \
   -xf "$cpython_zip" python/install
-
   "$bsdtar" --zstd -cf "$cpython_tar_zstd" python/install
-
-  rm -rf python/install
 fi;
