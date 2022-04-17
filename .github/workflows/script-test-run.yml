@@ -10,6 +10,9 @@ on:
       disable_nanoserver:
         required: false
         type: boolean
+      disable_linux:
+        required: false
+        type: boolean
     secrets:
       _WORKFLOW:
         required: true
@@ -32,7 +35,7 @@ jobs:
 
   ubuntu-host:
     needs: prejob
-    if: ${{ needs.prejob.outputs.workflow == inputs.workflow }}
+    if: ${{ inputs.disable_linux != true && needs.prejob.outputs.workflow == inputs.workflow }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -41,7 +44,7 @@ jobs:
 
   alpine-docker:
     needs: prejob
-    if: ${{ needs.prejob.outputs.workflow == inputs.workflow }}
+    if: ${{ inputs.disable_linux != true && needs.prejob.outputs.workflow == inputs.workflow }}
     runs-on: ubuntu-latest
     container: alpine:latest
     steps:
