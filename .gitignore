@@ -3,4 +3,5 @@ tools/
 .tools/
 .tmp/
 *.exe
+*.bat
 __pycache__
