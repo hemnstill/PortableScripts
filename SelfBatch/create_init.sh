@@ -7,8 +7,10 @@ certutil.exe -f -encode "$busybox" "$busybox_base64"
 
 { printf ': '\''"
 @echo off
+
 set busybox_local=%%~dp0busybox64_v1.35.0.exe
 certutil.exe -f -decode "%%~f0" "%%busybox_local%%"
+
 goto :entrypoint
 
 '

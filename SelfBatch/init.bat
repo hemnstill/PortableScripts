@@ -1,8 +1,8 @@
 : '"
 @echo off
 
-set busybox_shell=%~dp0busybox64_v1.35.0.exe
-certutil.exe -f -decode "%~f0" "%busybox_shell%"
+set busybox_local=%~dp0busybox64_v1.35.0.exe
+certutil.exe -f -decode "%~f0" "%busybox_local%"
 
 goto :entrypoint
 
@@ -7466,10 +7466,10 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 -----END CERTIFICATE-----
 
 :entrypoint
-
-"%busybox_shell%" sh "%~f0"
+"%busybox_local%" sh "%~f0"
 exit /b %errorlevel%
 "'
 
-echo Hello from bash!
+echo Hello from Bash!
 exit 0
+
