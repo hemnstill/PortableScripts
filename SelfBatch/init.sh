@@ -3,8 +3,10 @@ dp0="$(realpath "$(dirname "$0")")"
 dp0_tools="$dp0/../.tools" && source "$dp0_tools/env_tools.sh"
 set -e
 
-busybox_base64="$dp0/.tmp/_content.txt"
-certutil.exe -f -encode "$busybox" "$busybox_base64"
+content_before="$dp0/.tmp/content_before.sh"
+content_after="$dp0/.tmp/content_after.sh"
+content_busybox="$dp0/.tmp/_content.txt"
+certutil.exe -f -encode "$busybox" "$content_busybox"
 
 { printf ': '\''"
 @echo off
@@ -17,7 +19,7 @@ if not exist %%busybox_local%% (
 goto :entrypoint
 
 '
-} > "$dp0/.tmp/_before.sh"
+} > "$content_before"
 
 { printf '
 :entrypoint
@@ -30,6 +32,6 @@ echo Hello, Bash "$@"
 exit 42
 
 '
-} > "$dp0/.tmp/_after.sh"
+} > "$content_after"
 
-cat "$dp0/.tmp/_before.sh" "$busybox_base64" "$dp0/.tmp/_after.sh" > "$dp0/run.bat"
+cat "$content_before" "$content_busybox" "$content_after" > "$dp0/run.bat"
