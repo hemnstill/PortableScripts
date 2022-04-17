@@ -59,7 +59,7 @@ function test_stdout_batch() {
 }
 
 test_init "SelfBash"
-$is_windows_os && test_init_batch "SelfBatch"
+$is_nanoserver_os || $is_windows_os && test_init_batch "SelfBatch" # 'certutil.exe' is not recognized as an internal or external command
 
 test_stdout "SelfBash" "Hello, Bash s1 todo_fix_encoding1\n" "s1 todo_fix_encoding1"
 $is_nanoserver_os || $is_windows_os && test_stdout_batch "SelfBatch" "Hello, Batch \"s1 todo_fix_encoding1\"\nHello, Bash s1 todo_fix_encoding1\n" "s1 todo_fix_encoding1"
