@@ -17,23 +17,6 @@ function test_init() {
   cmd.exe /c call "$dp0/run.bat"
 }
 
-function test_stdout_batch() {
-  local runtime_name="$1"
-  echo ">> Test ($runtime_name)"
-  local etalon_log=$(echo -e "$2")
-  local actual_log=$(cmd.exe /c call "$dp0/run.bat" "$3")
-  # crlf fix
-  $is_windows_os && actual_log=$(echo "$actual_log" | dos2unix)
-  if [ "$etalon_log" != "$actual_log" ]; then
-    errors_count=$((errors_count + 1))
-    echo "<< Failed ($runtime_name)"
-    echo expected: "$etalon_log"
-    echo actual: "$actual_log"
-  else
-    echo "<< Passed ($runtime_name)"
-  fi
-}
-
 function test_stdout() {
   local runtime_name="$1"
   echo ">> Test ($runtime_name)"
@@ -51,10 +34,28 @@ function test_stdout() {
   fi
 }
 
+function test_stdout_batch() {
+  local runtime_name="$1"
+  echo ">> Test ($runtime_name)"
+  local etalon_log=$(echo -e "$2")
+  local actual_log=$(cmd.exe /c call "$dp0/run.bat" "$3")
+  # crlf fix
+  $is_windows_os && actual_log=$(echo "$actual_log" | dos2unix)
+  if [ "$etalon_log" != "$actual_log" ]; then
+    errors_count=$((errors_count + 1))
+    echo "<< Failed ($runtime_name)"
+    echo expected: "$etalon_log"
+    echo actual: "$actual_log"
+  else
+    echo "<< Passed ($runtime_name)"
+  fi
+}
+
 test_init "SelfBash"
 
-test_stdout_batch "SelfBatch" "Hello, Batch \"s1 todo_fix_encoding1\"\nHello, Bash s1 todo_fix_encoding1\n" "s1 todo_fix_encoding1"
 test_stdout "SelfBash" "Hello, Bash s1 todo_fix_encoding1\n" "s1 todo_fix_encoding1"
+
+$is_windows_os && test_stdout_batch "SelfBatch" "Hello, Batch \"s1 todo_fix_encoding1\"\nHello, Bash s1 todo_fix_encoding1\n" "s1 todo_fix_encoding1"
 
 echo Errors: "$errors_count"
 exit $errors_count
