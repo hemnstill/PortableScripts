@@ -1,6 +1,7 @@
 #!/bin/bash
 dp0="$(realpath "$(dirname "$0")")"
 dp0_tools="$dp0/../.tools" && source "$dp0_tools/env_tools.sh"
+set -e
 
 busybox_base64="$dp0/.tmp/_content.txt"
 certutil.exe -f -encode "$busybox" "$busybox_base64"
