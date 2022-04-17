@@ -51,7 +51,10 @@ function test_stdout_batch() {
   fi
 }
 
-$is_nanoserver_os && (echo "skip nanoserver"; exit 0)
+if [ "$is_nanoserver_os" == true ]; then
+  echo "skip nanoserver"
+  exit 0
+fi;
 
 test_init "SelfBash"
 
