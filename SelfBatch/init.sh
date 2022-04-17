@@ -7,13 +7,13 @@ content_before="$dp0/.tmp/content_before.sh"
 content_after="$dp0/.tmp/content_after.sh"
 content_busybox="$dp0/.tmp/_content.txt"
 
-if [ $is_windows_os == true ]; then
+if [ "$is_windows_os" == true ]; then
   certutil.exe -f -encode "$busybox" "$content_busybox"
 else
   {
-  echo -----BEGIN CERTIFICATE-----
-  base64 "$busybox"
-  echo -----END CERTIFICATE-----
+    echo -----BEGIN CERTIFICATE-----
+    base64 "$busybox"
+    echo -----END CERTIFICATE-----
   } > "$content_busybox"
 fi
 
