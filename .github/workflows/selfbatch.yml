@@ -7,5 +7,6 @@ jobs:
     uses: ./.github/workflows/script-test-run.yml
     with:
       workflow: ${{ github.workflow }}
+      disable_nanoserver: true # certutil.exe not found
     secrets:
       _WORKFLOW: ${{ secrets._CURRENT_RUNTIME }}

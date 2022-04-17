@@ -51,11 +51,6 @@ function test_stdout_batch() {
   fi
 }
 
-if [ "$is_nanoserver_os" == true ]; then
-  echo "skip nanoserver (certutil.exe not found)"
-  exit 0
-fi;
-
 test_init "SelfBash"
 test_stdout "SelfBash" "Hello, Bash s1 todo_fix_encoding1\n" "s1 todo_fix_encoding1"
 $is_windows_os && test_stdout_batch "SelfBatch" "Hello, Batch \"s1 todo_fix_encoding1\"\nHello, Bash s1 todo_fix_encoding1\n" "s1 todo_fix_encoding1"
