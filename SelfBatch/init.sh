@@ -9,7 +9,9 @@ certutil.exe -f -encode "$busybox" "$busybox_base64"
 @echo off
 
 set busybox_local=%%~dp0busybox64_v1.35.0.exe
-certutil.exe -f -decode "%%~f0" "%%busybox_local%%"
+if not exist %%busybox_local%% (
+  certutil.exe -f -decode "%%~f0" "%%busybox_local%%"
+)
 
 goto :entrypoint
 
@@ -18,14 +20,15 @@ goto :entrypoint
 
 { printf '
 :entrypoint
-"%%busybox_local%%" sh "%%~f0"
-exit /b %%errorlevel%%
+echo Hello, Batch %%*
+"%%busybox_local%%" sh "%%~f0" %%*
+exit /b 42
 "'\''
 
-echo Hello from Bash!
-exit 0
+echo Hello, Bash "$@"
+exit 42
 
 '
 } > .tmp/_after.sh
 
-cat .tmp/_before.sh .tmp/_content.txt .tmp/_after.sh > init.bat
+cat .tmp/_before.sh .tmp/_content.txt .tmp/_after.sh > run.bat

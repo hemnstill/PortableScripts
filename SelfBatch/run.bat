@@ -2,7 +2,9 @@
 @echo off
 
 set busybox_local=%~dp0busybox64_v1.35.0.exe
-certutil.exe -f -decode "%~f0" "%busybox_local%"
+if not exist %busybox_local% (
+  certutil.exe -f -decode "%~f0" "%busybox_local%"
+)
 
 goto :entrypoint
 
@@ -7466,10 +7468,11 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 -----END CERTIFICATE-----
 
 :entrypoint
-"%busybox_local%" sh "%~f0"
-exit /b %errorlevel%
+echo Hello, Batch %*
+"%busybox_local%" sh "%~f0" %*
+exit /b 42
 "'
 
-echo Hello from Bash!
-exit 0
+echo Hello, Bash "$@"
+exit 42
 
