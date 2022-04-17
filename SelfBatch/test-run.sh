@@ -14,6 +14,13 @@ function test_init() {
   local runtime_name="$1"
   echo ">> Init ($runtime_name)"
   "$dp0/init.sh"
+  sh "$dp0/run.bat"
+}
+
+function test_init_batch() {
+  local runtime_name="$1"
+  echo ">> Init ($runtime_name)"
+  "$dp0/init.sh"
   cmd.exe /c call "$dp0/run.bat"
 }
 
@@ -53,6 +60,8 @@ function test_stdout_batch() {
 
 test_init "SelfBash"
 test_stdout "SelfBash" "Hello, Bash s1 todo_fix_encoding1\n" "s1 todo_fix_encoding1"
+
+$is_windows_os && test_init_batch "SelfBatch"
 $is_windows_os && test_stdout_batch "SelfBatch" "Hello, Batch \"s1 todo_fix_encoding1\"\nHello, Bash s1 todo_fix_encoding1\n" "s1 todo_fix_encoding1"
 
 echo Errors: "$errors_count"

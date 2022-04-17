@@ -8,6 +8,5 @@ jobs:
     with:
       workflow: ${{ github.workflow }}
       disable_nanoserver: true # certutil.exe not found
-      disable_linux: true # certutil.exe not found
     secrets:
       _WORKFLOW: ${{ secrets._CURRENT_RUNTIME }}
