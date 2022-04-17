@@ -16,7 +16,7 @@ if not exist %%busybox_local%% (
 goto :entrypoint
 
 '
-} > "$dp0.tmp/_before.sh"
+} > "$dp0/.tmp/_before.sh"
 
 { printf '
 :entrypoint
@@ -29,6 +29,6 @@ echo Hello, Bash "$@"
 exit 42
 
 '
-} > "$dp0.tmp/_after.sh"
+} > "$dp0/.tmp/_after.sh"
 
-cat "$dp0/.tmp/_before.sh" "$dp0.tmp/_content.txt" "$dp0.tmp/_after.sh" > "$dp0/run.bat"
+cat "$dp0/.tmp/_before.sh" "$dp0/.tmp/_content.txt" "$dp0/.tmp/_after.sh" > "$dp0/run.bat"
