@@ -31,4 +31,4 @@ exit 42
 '
 } > "$dp0/.tmp/_after.sh"
 
-cat "$dp0/.tmp/_before.sh" "$dp0/.tmp/_content.txt" "$dp0/.tmp/_after.sh" > "$dp0/run.bat"
+cat "$dp0/.tmp/_before.sh" "$busybox_base64" "$dp0/.tmp/_after.sh" > "$dp0/run.bat"
