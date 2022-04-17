@@ -31,4 +31,4 @@ exit 42
 '
 } > .tmp/_after.sh
 
-cat .tmp/_before.sh .tmp/_content.txt .tmp/_after.sh > run.bat
+cat .tmp/_before.sh .tmp/_content.txt .tmp/_after.sh > "$dp0/run.bat"
