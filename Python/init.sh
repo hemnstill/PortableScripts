@@ -11,9 +11,9 @@ download_url="$linux_download_url" && $is_windows_os && download_url="$windows_d
 cpython_zip="$runtime_tools/raw_cpython-linux.tar.zst" && $is_windows_os && cpython_zip="$runtime_tools/raw_cpython-win.tar.zst"
 [[ ! -f "$cpython_zip" ]] && "$busybox" wget "$download_url" -O "$cpython_zip"
 
-cpython_tar_zstd="$runtime_tools/cpython-linux.tar.zst" && $is_windows_os && cpython_tar_zstd="$runtime_tools/cpython-win.tar.zst"
-if [[ ! -f "$cpython_tar_zstd" ]]; then
-  echo repacking "$cpython_zip" to "$cpython_tar_zstd" ...
+cpython_7z="$runtime_tools/cpython-linux.7z" && $is_windows_os && cpython_7z="$runtime_tools/cpython-win.7z"
+if [[ ! -f "$cpython_7z" ]]; then
+  echo repacking "$cpython_zip" to "$cpython_7z" ...
   mkdir -p "$dp0/.tmp" && cd "$dp0/.tmp" || exit 1
   "$bsdtar" \
   --exclude="__pycache__" \
@@ -33,5 +33,6 @@ if [[ ! -f "$cpython_tar_zstd" ]]; then
   --exclude="tk*.dll" \
   --exclude="python/install/tcl" \
   -xf "$cpython_zip" python/install
-  "$bsdtar" --zstd -cf "$cpython_tar_zstd" python/install
+
+  "$p7z" a "$cpython_7z" -mx=9 -up0q0 "python/install"
 fi;
