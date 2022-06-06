@@ -74,6 +74,7 @@ jobs:
 
     - uses: actions/upload-artifact@v3
       with:
+        name: ${{ github.workflow }}-artifacts
         path: ${{ steps.create_artifact.outputs.artifact_path }}
 
   nanoserver-docker:

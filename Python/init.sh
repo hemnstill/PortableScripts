@@ -35,6 +35,8 @@ if [[ ! -f "$cpython_7z" ]]; then
   --exclude="python/install/tcl" \
   -xf "$cpython_zip" python/install
 
+  [[ $is_windows_os != true ]] && strip python/install/bin/python3
+
   "$p7z" a "$cpython_7z" -mx=9 -up0q0 "python/install"
 fi;
 
