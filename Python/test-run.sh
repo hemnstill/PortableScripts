@@ -18,4 +18,4 @@ test_stdout() {
 }
 
 # Load and run shUnit2.
-source "../.tests/shunit2/shunit2"
+source "$dp0/../.tests/shunit2/shunit2"
