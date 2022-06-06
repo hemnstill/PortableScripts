@@ -40,7 +40,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: test-run
+      id: create_artifact
       run: ./${{ inputs.workflow }}/test-run.sh
+
+    - name: upload ${{ steps.create_artifact.outputs.artifact_path }}
+      run: echo ${{ steps.create_artifact.outputs.artifact_path }}
 
   alpine-docker:
     needs: prejob

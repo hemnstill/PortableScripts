@@ -37,3 +37,5 @@ if [[ ! -f "$cpython_7z" ]]; then
 
   "$p7z" a "$cpython_7z" -mx=9 -up0q0 "python/install"
 fi;
+
+echo "::set-output name=artifact_path::$cpython_7z"
