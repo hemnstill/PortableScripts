@@ -44,7 +44,9 @@ jobs:
       run: ./${{ inputs.workflow }}/test-run.sh
 
     - name: upload ${{ steps.create_artifact.outputs.artifact_path }}
-      run: echo ${{ steps.create_artifact.outputs.artifact_path }}
+    - uses: actions/upload-artifact@v3
+      with:
+        path: ${{ steps.create_artifact.outputs.artifact_path }}
 
   alpine-docker:
     needs: prejob
