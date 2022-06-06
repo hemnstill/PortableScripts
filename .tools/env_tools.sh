@@ -25,5 +25,5 @@ assert_stdout() {
   local actual_log=$("$dp0_tools/../$runtime_name/run.sh" "$3")
   # crlf fix
   $is_windows_os && actual_log=$(echo "$actual_log" | dos2unix)
-  assetEquals "$etalon_log" "$actual_log"
+  assertEquals "$etalon_log" "$actual_log"
 }

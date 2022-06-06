@@ -7,8 +7,10 @@ oneTimeSetUp() {
 }
 
 test_init() {
-  "$dp0/init.sh" || fail
-  "$dp0/run.sh" || fail
+  "$dp0/init.sh"
+  assertEquals 0 $?
+  "$dp0/run.sh"
+  assertEquals 42 $?
 }
 
 test_stdout() {
