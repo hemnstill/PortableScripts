@@ -26,12 +26,15 @@ if [[ ! -f "$cpython_7z" ]]; then
   --exclude="Scripts" \
   --exclude="*.pdb" \
   --exclude="*.whl" \
+  --exclude="*.a" \
   --exclude="*.lib" \
   --exclude="*.pickle" \
   --exclude="pythonw.exe" \
   --exclude="python/install/include" \
   --exclude="tcl*.dll" \
+  --exclude="lib/tcl*" \
   --exclude="tk*.dll" \
+  --exclude="lib/tk*" \
   --exclude="python/install/tcl" \
   --exclude="python/install/share" \
   -xf "$cpython_zip" python/install
