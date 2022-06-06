@@ -14,7 +14,8 @@ cpython_zip="$runtime_tools/raw_cpython-linux.tar.zst" && $is_windows_os && cpyt
 cpython_7z="$runtime_tools/cpython-linux.7z" && $is_windows_os && cpython_7z="$runtime_tools/cpython-win.7z"
 if [[ ! -f "$cpython_7z" ]]; then
   echo repacking "$cpython_zip" to "$cpython_7z" ...
-  mkdir -p "$dp0/.tmp" && cd "$dp0/.tmp" || exit 1
+  rm -rf "$dp0/.tmp/"* && mkdir -p "$dp0/.tmp" && cd "$dp0/.tmp" || exit 1
+
   "$bsdtar" \
   --exclude="__pycache__" \
   --exclude="test" \
