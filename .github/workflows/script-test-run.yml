@@ -43,7 +43,6 @@ jobs:
       id: create_artifact
       run: ./${{ inputs.workflow }}/test-run.sh
 
-    - name: upload ${{ steps.create_artifact.outputs.artifact_path }}
     - uses: actions/upload-artifact@v3
       with:
         path: ${{ steps.create_artifact.outputs.artifact_path }}
@@ -68,9 +67,14 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: test-run
+      id: create_artifact
       shell: cmd
       run: |
         .tools\busybox64.exe sh ${{ inputs.workflow }}\test-run.sh
+
+    - uses: actions/upload-artifact@v3
+      with:
+        path: ${{ steps.create_artifact.outputs.artifact_path }}
 
   nanoserver-docker:
     needs: prejob
