@@ -33,6 +33,7 @@ if [[ ! -f "$cpython_7z" ]]; then
   --exclude="tcl*.dll" \
   --exclude="tk*.dll" \
   --exclude="python/install/tcl" \
+  --exclude="python/install/share" \
   -xf "$cpython_zip" python/install
 
   [[ $is_windows_os != true ]] && strip python/install/bin/python3
