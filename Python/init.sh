@@ -26,14 +26,22 @@ if [[ ! -f "$cpython_7z" ]]; then
   --exclude="Scripts" \
   --exclude="*.pdb" \
   --exclude="*.whl" \
+  --exclude="*.a" \
   --exclude="*.lib" \
   --exclude="*.pickle" \
   --exclude="pythonw.exe" \
   --exclude="python/install/include" \
   --exclude="tcl*.dll" \
+  --exclude="lib/tcl*" \
   --exclude="tk*.dll" \
+  --exclude="lib/tk*" \
   --exclude="python/install/tcl" \
+  --exclude="python/install/share" \
   -xf "$cpython_zip" python/install
+
+  [[ $is_windows_os != true ]] && strip python/install/bin/python3
 
   "$p7z" a "$cpython_7z" -mx=9 -up0q0 "python/install"
 fi;
+
+echo "::set-output name=artifact_path::$cpython_7z"
