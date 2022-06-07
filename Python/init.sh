@@ -39,7 +39,7 @@ if [[ ! -f "$cpython_7z" ]]; then
   --exclude="python/install/share" \
   -xf "$cpython_zip" python/install
 
-  [[ $is_windows_os != true ]] && strip python/install/bin/python3
+  [[ $is_windows_os != true ]] && strip python/install/lib/libpython3.9.so
 
   "$p7z" a "$cpython_7z" -mx=9 -up0q0 "python/install"
 fi;
