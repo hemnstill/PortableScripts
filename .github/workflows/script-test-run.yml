@@ -71,7 +71,7 @@ jobs:
       id: create_artifact
       shell: cmd
       run: |
-        .tools\busybox64.exe sh ${{ inputs.workflow }}\test-run.sh
+        .tools\busybox.exe sh ${{ inputs.workflow }}\test-run.sh
 
     - uses: actions/upload-artifact@v3
       with:
@@ -94,4 +94,4 @@ jobs:
       shell: cmd
       run: >
         docker container run --rm --env CI=true -v ${{ github.workspace }}:C:\app ${{ env.IMAGE_NAME }}
-        C:\app\.tools\busybox64.exe sh C:\app\${{ inputs.workflow }}\test-run.sh
+        C:\app\.tools\busybox.exe sh C:\app\${{ inputs.workflow }}\test-run.sh
