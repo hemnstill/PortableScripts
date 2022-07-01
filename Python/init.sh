@@ -8,8 +8,8 @@ mkdir -p "$runtime_tools"
 python_version=3.10.5
 python_runtime_name="cpython-$python_version-linux-musl-noopt" && $is_windows_os && python_runtime_name="cpython-$python_version-windows-msvc"
 
-linux_download_url="https://github.com/indygreg/python-build-standalone/releases/download/20220528/cpython-$python_version+20220528-x86_64-unknown-linux-musl-noopt-full.tar.zst"
-windows_download_url="https://github.com/indygreg/python-build-standalone/releases/download/20220528/cpython-$python_version+20220528-x86_64-pc-windows-msvc-shared-pgo-full.tar.zst"
+linux_download_url="https://github.com/indygreg/python-build-standalone/releases/download/20220630/cpython-$python_version+20220630-x86_64-unknown-linux-musl-noopt-full.tar.zst"
+windows_download_url="https://github.com/indygreg/python-build-standalone/releases/download/20220630/cpython-$python_version+20220630-x86_64-pc-windows-msvc-shared-pgo-full.tar.zst"
 download_url="$linux_download_url" && $is_windows_os && download_url="$windows_download_url"
 cpython_zip="$runtime_tools/raw_cpython-linux.tar.zst" && $is_windows_os && cpython_zip="$runtime_tools/raw_cpython-win.tar.zst"
 [[ ! -f "$cpython_zip" ]] && "$busybox" wget "$download_url" -O "$cpython_zip"
