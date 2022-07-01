@@ -5,7 +5,7 @@ set -e
 runtime_tools="$dp0/tools"
 mkdir -p "$runtime_tools"
 
-python_version=3.10.4
+python_version=3.10.5
 python_runtime_name="cpython-$python_version-linux-musl-noopt" && $is_windows_os && python_runtime_name="cpython-$python_version-windows-msvc"
 
 linux_download_url="https://github.com/indygreg/python-build-standalone/releases/download/20220528/cpython-$python_version+20220528-x86_64-unknown-linux-musl-noopt-full.tar.zst"
