@@ -5,8 +5,11 @@ set -e
 runtime_tools="$dp0/tools"
 mkdir -p "$runtime_tools"
 
-linux_download_url=https://github.com/indygreg/python-build-standalone/releases/download/20220528/cpython-3.10.4+20220528-x86_64-unknown-linux-musl-noopt-full.tar.zst
-windows_download_url=https://github.com/indygreg/python-build-standalone/releases/download/20220528/cpython-3.10.4+20220528-x86_64-pc-windows-msvc-shared-pgo-full.tar.zst
+python_version=3.10.5
+python_runtime_name="cpython-$python_version-linux-musl-noopt" && $is_windows_os && python_runtime_name="cpython-$python_version-windows-msvc"
+
+linux_download_url="https://github.com/indygreg/python-build-standalone/releases/download/20220630/cpython-$python_version+20220630-x86_64-unknown-linux-musl-noopt-full.tar.zst"
+windows_download_url="https://github.com/indygreg/python-build-standalone/releases/download/20220630/cpython-$python_version+20220630-x86_64-pc-windows-msvc-shared-pgo-full.tar.zst"
 download_url="$linux_download_url" && $is_windows_os && download_url="$windows_download_url"
 cpython_zip="$runtime_tools/raw_cpython-linux.tar.zst" && $is_windows_os && cpython_zip="$runtime_tools/raw_cpython-win.tar.zst"
 [[ ! -f "$cpython_zip" ]] && "$busybox" wget "$download_url" -O "$cpython_zip"
@@ -39,9 +42,16 @@ if [[ ! -f "$cpython_7z" ]]; then
   --exclude="python/install/share" \
   -xf "$cpython_zip" python/install
 
-  [[ $is_windows_os != true ]] && strip python/install/bin/python3
 
-  "$p7z" a "$cpython_7z" -mx=9 -up0q0 "python/install"
+  # rename twice.
+  mv python _python
+  mv _python Python
+
+  mv Python/install "Python/$python_runtime_name"
+
+  [[ $is_windows_os != true ]] && strip "Python/$python_runtime_name/bin/python3"
+
+  "$p7z" a "$cpython_7z" -mx=9 -up0q0 "Python/$python_runtime_name"
 fi;
 
 echo "::set-output name=artifact_path::$cpython_7z"
